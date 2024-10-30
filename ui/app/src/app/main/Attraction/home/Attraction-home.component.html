@@ -1,0 +1,37 @@
+<o-form-layout-manager attr="Attraction" mode="tab" title="ATTRACTION">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="AttractionTable" 
+            service="Attraction" 
+            entity="Attraction" 
+            title="ATTRACTION"
+            keys="attraction_id"
+            columns="name;height_requirement_cm;is_operational;attraction_id" 
+            header-actions="R;D"
+            visible-columns="name;height_requirement_cm;is_operational;attraction_id"  
+            sort-columns="name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #name attr="name" title=" name*" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #height_requirement_cm attr="height_requirement_cm" title="height_requirement_cm" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-column #is_operational attr="is_operational" title="is_operational" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #attraction_id attr="attraction_id" title="attraction_id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

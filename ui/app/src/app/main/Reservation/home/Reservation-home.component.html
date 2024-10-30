@@ -1,0 +1,51 @@
+<o-form-layout-manager attr="Reservation" mode="tab" title="RESERVATION">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="ReservationTable" 
+            service="Reservation" 
+            entity="Reservation" 
+            title="RESERVATION"
+            keys="reservation_id"
+            columns="reservation_id;event_id;visitor_id;reservation_time" 
+            header-actions="R;D"
+            visible-columns="reservation_id;event_id;visitor_id;reservation_time"  
+            sort-columns="reservation_id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #reservation_id attr="reservation_id" title=" reservation_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="event_id" title="event_id">
+    <o-table-cell-renderer-service attr="event_id" 
+        service="Event" entity="EventType" columns="event_id;name"
+        parent-keys="reservation_id:event_id"
+        value-column="name" keys="event_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="visitor_id" title="visitor_id">
+    <o-table-cell-renderer-service attr="visitor_id" 
+        service="Visitor" entity="VisitorType" columns="visitor_id;name"
+        parent-keys="reservation_id:visitor_id"
+        value-column="name" keys="visitor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #reservation_time attr="reservation_time" title="reservation_time" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

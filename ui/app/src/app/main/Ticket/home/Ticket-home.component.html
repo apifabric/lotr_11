@@ -1,0 +1,35 @@
+<o-form-layout-manager attr="Ticket" mode="dialog" title="TICKET">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="TicketTable" 
+            service="Ticket" 
+            entity="Ticket" 
+            title="TICKET"
+            keys="ticket_id"
+            columns="ticket_id;Type;price" 
+            header-actions="R;D"
+            visible-columns="ticket_id;Type;price"  
+            sort-columns="ticket_id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #ticket_id attr="ticket_id" title=" ticket_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column #Type attr="Type" title="Type" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #price attr="price" title="price" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

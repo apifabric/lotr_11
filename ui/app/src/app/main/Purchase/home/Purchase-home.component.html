@@ -1,0 +1,51 @@
+<o-form-layout-manager attr="Purchase" mode="tab" title="PURCHASE">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="PurchaseTable" 
+            service="Purchase" 
+            entity="Purchase" 
+            title="PURCHASE"
+            keys="purchase_id"
+            columns="purchase_id;vendor_id;visitor_id;purchase_time" 
+            header-actions="R;D"
+            visible-columns="purchase_id;vendor_id;visitor_id;purchase_time"  
+            sort-columns="purchase_id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #purchase_id attr="purchase_id" title=" purchase_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="vendor_id" title="vendor_id">
+    <o-table-cell-renderer-service attr="vendor_id" 
+        service="FoodVendor" entity="FoodVendorType" columns="vendor_id;name"
+        parent-keys="purchase_id:vendor_id"
+        value-column="name" keys="vendor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="visitor_id" title="visitor_id">
+    <o-table-cell-renderer-service attr="visitor_id" 
+        service="Visitor" entity="VisitorType" columns="visitor_id;name"
+        parent-keys="purchase_id:visitor_id"
+        value-column="name" keys="visitor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #purchase_time attr="purchase_time" title="purchase_time" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

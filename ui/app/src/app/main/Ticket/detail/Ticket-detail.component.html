@@ -1,0 +1,28 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="ticket_id" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Ticket_form_edit" 
+        service="Ticket" 
+        entity="Ticket" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="ticket_id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-integer-input #ticket_id attr="ticket_id" label=" ticket_id*" type="integer" editable="no" required="no" ></o-integer-input>
+      
+      <o-text-input #Type attr="Type" label="Type" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #price attr="price" label="price" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+    </div>
+  </o-row>
+      
+    </o-form>
+  </o-form-container>
+</div>

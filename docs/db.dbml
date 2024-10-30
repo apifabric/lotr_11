@@ -1,0 +1,114 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+Attraction: Represents attractions within the theme park.Contains details like name, height requirement, and whether the attraction is operational.
+Event: Defines special events hosted at the park.Stores event details such as name, date, and description.
+FoodVendor: Represents food vendors available at the park.Stores vendor details including name, and specialty cuisine.
+Maintenance: Records maintenance activities performed on attractions.Captures the date of maintenance, involved staff, and the relevant attraction.
+Staff: Represents staff members employed at the park.Stores staff details including name, role, and employment date.
+Merchandise: Represents merchandise items sold at the park.Includes details like item name, price, and category.
+Purchase: Represents food purchase transactions.Contains details like the visitor ID, vendor ID, and purchase timestamp.
+Visitor: Represents visitors to the theme park. Stores visitor information such as name and visit timestamp.
+Reservation: Represents reservations made by visitors for park events.Includes the visitor ID, event ID, and the reservation timestamp.
+RideExperience: Captures visitor experiences on rides.Stores details like visitor ID, attraction ID, and rating provided by visitors.
+Sale: Represents sales transactions for merchandise items.Includes the merchandise ID, quantity sold, and the sale timestamp.
+Ticket: Defines the tickets sold for entry to the park.Includes the ticket type and price.
+'''
+}
+
+Table Attraction {
+    attraction_id INTEGER [primary key]
+    name VARCHAR 
+    height_requirement_cm FLOAT 
+    is_operational BOOLEAN 
+    }
+
+Table Event {
+    event_id INTEGER [primary key]
+    name VARCHAR 
+    event_date DATETIME 
+    description VARCHAR 
+    }
+
+Table FoodVendor {
+    vendor_id INTEGER [primary key]
+    name VARCHAR 
+    specialty VARCHAR 
+    }
+
+Table Maintenance {
+    maintenance_id INTEGER [primary key]
+    attraction_id INTEGER 
+    staff_id INTEGER 
+    maintenance_date DATETIME 
+    }
+
+Table Staff {
+    staff_id INTEGER [primary key]
+    name VARCHAR 
+    role VARCHAR 
+    employment_date DATETIME 
+    }
+
+Table Merchandise {
+    merchandise_id INTEGER [primary key]
+    name VARCHAR 
+    price FLOAT 
+    category VARCHAR 
+    }
+
+Table Purchase {
+    purchase_id INTEGER [primary key]
+    visitor_id INTEGER 
+    vendor_id INTEGER 
+    purchase_time DATETIME 
+    }
+
+Table Visitor {
+    visitor_id INTEGER [primary key]
+    name VARCHAR 
+    visit_time DATETIME 
+    }
+
+Table Reservation {
+    reservation_id INTEGER [primary key]
+    visitor_id INTEGER 
+    event_id INTEGER 
+    reservation_time DATETIME 
+    }
+
+Table RideExperience {
+    experience_id INTEGER [primary key]
+    visitor_id INTEGER 
+    attraction_id INTEGER 
+    rating INTEGER 
+    }
+
+Table Sale {
+    sale_id INTEGER [primary key]
+    merchandise_id INTEGER 
+    quantity INTEGER 
+    sale_time DATETIME 
+    }
+
+Table Ticket {
+    ticket_id INTEGER [primary key]
+    Type VARCHAR 
+    price FLOAT 
+    }
+
+
+
+// Relationships
+    Ref: Maintenance.(attraction_id) < Attraction.(attraction_id)
+    Ref: Maintenance.(staff_id) < Staff.(staff_id)
+    Ref: Purchase.(vendor_id) < FoodVendor.(vendor_id)
+    Ref: Purchase.(visitor_id) < Visitor.(visitor_id)
+    Ref: Reservation.(event_id) < Event.(event_id)
+    Ref: Reservation.(visitor_id) < Visitor.(visitor_id)
+    Ref: RideExperience.(attraction_id) < Attraction.(attraction_id)
+    Ref: RideExperience.(visitor_id) < Visitor.(visitor_id)
+    Ref: Sale.(merchandise_id) < Merchandise.(merchandise_id)

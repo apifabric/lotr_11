@@ -1,0 +1,87 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="name" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="FoodVendor_form_edit" 
+        service="FoodVendor" 
+        entity="FoodVendor" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="vendor_id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-text-input #name attr="name" label=" name*" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #specialty attr="specialty" label="specialty" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-integer-input #vendor_id attr="vendor_id" label="vendor_id" type="integer" editable="no" required="no" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="PURCHASE-vendor_id">
+    <div layout-padding>
+      <o-table 
+        attr="PurchaseTable" 
+        service="Purchase" 
+        entity="Purchase" 
+        keys="purchase_id"
+        parent-keys="vendor_id:vendor_id"
+        columns="purchase_id;vendor_id;visitor_id;purchase_time"  
+        horizontal-scroll="yes"
+        detail-form-route="Purchase" 
+        edit-form-route="Purchase"
+        visible-columns="purchase_id;vendor_id;visitor_id;purchase_time"  
+        sort-columns="purchase_id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #purchase_id attr="purchase_id" title=" purchase_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="vendor_id" title="vendor_id">
+    <o-table-cell-renderer-service attr="vendor_id" 
+        service="FoodVendor" entity="FoodVendorType" columns="vendor_id;name"
+        parent-keys="vendor_id:vendor_id"
+        value-column="name" keys="vendor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="visitor_id" title="visitor_id">
+    <o-table-cell-renderer-service attr="visitor_id" 
+        service="Visitor" entity="VisitorType" columns="visitor_id;name"
+        parent-keys="vendor_id:visitor_id"
+        value-column="name" keys="visitor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #purchase_time attr="purchase_time" title="purchase_time" editable="no" required="no" content-align="left"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>

@@ -1,0 +1,89 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="name" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Staff_form_edit" 
+        service="Staff" 
+        entity="Staff" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="staff_id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-text-input #name attr="name" label=" name*" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #role attr="role" label="role" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-date-input #employment_date attr="employment_date" type="timestamp" label="employment_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+      
+      <o-integer-input #staff_id attr="staff_id" label="staff_id" type="integer" editable="no" required="no" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="MAINTENANCE-staff_id">
+    <div layout-padding>
+      <o-table 
+        attr="MaintenanceTable" 
+        service="Maintenance" 
+        entity="Maintenance" 
+        keys="maintenance_id"
+        parent-keys="staff_id:staff_id"
+        columns="maintenance_id;attraction_id;staff_id;maintenance_date"  
+        horizontal-scroll="yes"
+        detail-form-route="Maintenance" 
+        edit-form-route="Maintenance"
+        visible-columns="maintenance_id;attraction_id;staff_id;maintenance_date"  
+        sort-columns="maintenance_id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #maintenance_id attr="maintenance_id" title=" maintenance_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="attraction_id" title="attraction_id">
+    <o-table-cell-renderer-service attr="attraction_id" 
+        service="Attraction" entity="AttractionType" columns="attraction_id;name"
+        parent-keys="staff_id:attraction_id"
+        value-column="name" keys="attraction_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="staff_id" title="staff_id">
+    <o-table-cell-renderer-service attr="staff_id" 
+        service="Staff" entity="StaffType" columns="staff_id;name"
+        parent-keys="staff_id:staff_id"
+        value-column="name" keys="staff_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-date-input #maintenance_date attr="maintenance_date" type="timestamp" label="maintenance_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>

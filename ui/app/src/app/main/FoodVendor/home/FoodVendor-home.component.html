@@ -1,0 +1,35 @@
+<o-form-layout-manager attr="FoodVendor" mode="tab" title="FOODVENDOR">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="FoodVendorTable" 
+            service="FoodVendor" 
+            entity="FoodVendor" 
+            title="FOODVENDOR"
+            keys="vendor_id"
+            columns="name;specialty;vendor_id" 
+            header-actions="R;D"
+            visible-columns="name;specialty;vendor_id"  
+            sort-columns="name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #name attr="name" title=" name*" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #specialty attr="specialty" title="specialty" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #vendor_id attr="vendor_id" title="vendor_id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

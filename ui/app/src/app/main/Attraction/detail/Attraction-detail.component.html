@@ -1,0 +1,144 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="name" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Attraction_form_edit" 
+        service="Attraction" 
+        entity="Attraction" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="attraction_id" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-text-input #name attr="name" label=" name*" enabled="yes" required="yes" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #height_requirement_cm attr="height_requirement_cm" label="height_requirement_cm" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-text-input #is_operational attr="is_operational" label="is_operational" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+      <o-integer-input #attraction_id attr="attraction_id" label="attraction_id" type="integer" editable="no" required="no" ></o-integer-input>
+      
+    </div>
+  </o-row>
+      
+      <mat-tab-group fxFill>
+        
+        <mat-tab label="MAINTENANCE-attraction_id">
+    <div layout-padding>
+      <o-table 
+        attr="MaintenanceTable" 
+        service="Maintenance" 
+        entity="Maintenance" 
+        keys="maintenance_id"
+        parent-keys="attraction_id:attraction_id"
+        columns="maintenance_id;attraction_id;staff_id;maintenance_date"  
+        horizontal-scroll="yes"
+        detail-form-route="Maintenance" 
+        edit-form-route="Maintenance"
+        visible-columns="maintenance_id;attraction_id;staff_id;maintenance_date"  
+        sort-columns="maintenance_id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #maintenance_id attr="maintenance_id" title=" maintenance_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="attraction_id" title="attraction_id">
+    <o-table-cell-renderer-service attr="attraction_id" 
+        service="Attraction" entity="AttractionType" columns="attraction_id;name"
+        parent-keys="attraction_id:attraction_id"
+        value-column="name" keys="attraction_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="staff_id" title="staff_id">
+    <o-table-cell-renderer-service attr="staff_id" 
+        service="Staff" entity="StaffType" columns="staff_id;name"
+        parent-keys="attraction_id:staff_id"
+        value-column="name" keys="staff_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-date-input #maintenance_date attr="maintenance_date" type="timestamp" label="maintenance_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+        <mat-tab label="RIDEEXPERIENCE-attraction_id">
+    <div layout-padding>
+      <o-table 
+        attr="RideExperienceTable" 
+        service="RideExperience" 
+        entity="RideExperience" 
+        keys="experience_id"
+        parent-keys="attraction_id:attraction_id"
+        columns="experience_id;attraction_id;visitor_id;rating"  
+        horizontal-scroll="yes"
+        detail-form-route="RideExperience" 
+        edit-form-route="RideExperience"
+        visible-columns="experience_id;attraction_id;visitor_id;rating"  
+        sort-columns="experience_id" 
+        query-rows="25" 
+        quick-filter="yes"
+        row-height="medium" 
+        select-all-checkbox="true" 
+        pageable="yes"  
+        auto-adjust="true" 
+        virtual-scroll="yes" 
+        insert-button="yes" 
+        delete-button="yes" 
+        fixed-header="true" 
+        class="vertical-padding-8"
+        edition-mode="dblclick" 
+        horizontal-scroll="yes" class="fill-form">
+        
+          <o-table-column #experience_id attr="experience_id" title=" experience_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+          <o-table-column attr="attraction_id" title="attraction_id">
+    <o-table-cell-renderer-service attr="attraction_id" 
+        service="Attraction" entity="AttractionType" columns="attraction_id;name"
+        parent-keys="attraction_id:attraction_id"
+        value-column="name" keys="attraction_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column attr="visitor_id" title="visitor_id">
+    <o-table-cell-renderer-service attr="visitor_id" 
+        service="Visitor" entity="VisitorType" columns="visitor_id;name"
+        parent-keys="attraction_id:visitor_id"
+        value-column="name" keys="visitor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+        
+          <o-table-column #rating attr="rating" title="rating" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+        
+        <o-table-paginator page-size-options="25;50;100"></o-table-paginator>
+      </o-table>
+    </div>
+</mat-tab>
+        
+      </mat-tab-group>
+      
+    </o-form>
+  </o-form-container>
+</div>

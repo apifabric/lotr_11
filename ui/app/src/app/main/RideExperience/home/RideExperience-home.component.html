@@ -1,0 +1,51 @@
+<o-form-layout-manager attr="RideExperience" mode="tab" title="RIDEEXPERIENCE">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="RideExperienceTable" 
+            service="RideExperience" 
+            entity="RideExperience" 
+            title="RIDEEXPERIENCE"
+            keys="experience_id"
+            columns="experience_id;attraction_id;visitor_id;rating" 
+            header-actions="R;D"
+            visible-columns="experience_id;attraction_id;visitor_id;rating"  
+            sort-columns="experience_id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #experience_id attr="experience_id" title=" experience_id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="attraction_id" title="attraction_id">
+    <o-table-cell-renderer-service attr="attraction_id" 
+        service="Attraction" entity="AttractionType" columns="attraction_id;name"
+        parent-keys="experience_id:attraction_id"
+        value-column="name" keys="attraction_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="visitor_id" title="visitor_id">
+    <o-table-cell-renderer-service attr="visitor_id" 
+        service="Visitor" entity="VisitorType" columns="visitor_id;name"
+        parent-keys="experience_id:visitor_id"
+        value-column="name" keys="visitor_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #rating attr="rating" title="rating" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

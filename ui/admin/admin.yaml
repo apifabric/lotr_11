@@ -1,0 +1,350 @@
+about:
+  date: October 30, 2024 08:50:57
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 9
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Attraction:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: height_requirement_cm
+    - name: is_operational
+    - name: attraction_id
+    description: Represents attractions within the theme park.Contains details like
+      name, height requirement, and whether the attraction is operational.
+    info_list: Represents attractions within the theme park.Contains details like
+      name, height requirement, and whether the attraction is operational.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - attraction_id
+      name: MaintenanceList
+      resource: Maintenance
+    - direction: tomany
+      fks:
+      - attraction_id
+      name: RideExperienceList
+      resource: RideExperience
+    type: Attraction
+    user_key: name
+  Event:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: event_date
+      required: true
+      type: DATETIME
+    - name: description
+    - name: event_id
+    description: Defines special events hosted at the park.Stores event details such
+      as name, date, and description.
+    info_list: Defines special events hosted at the park.Stores event details such
+      as name, date, and description.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - event_id
+      name: ReservationList
+      resource: Reservation
+    type: Event
+    user_key: name
+  FoodVendor:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: specialty
+      required: true
+    - name: vendor_id
+    description: Represents food vendors available at the park.Stores vendor details
+      including name, and specialty cuisine.
+    info_list: Represents food vendors available at the park.Stores vendor details
+      including name, and specialty cuisine.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - vendor_id
+      name: PurchaseList
+      resource: Purchase
+    type: FoodVendor
+    user_key: name
+  Maintenance:
+    attributes:
+    - label: ' maintenance_id*'
+      name: maintenance_id
+      search: true
+      sort: true
+    - name: attraction_id
+      required: true
+    - name: staff_id
+      required: true
+    - name: maintenance_date
+      type: DATETIME
+    description: Records maintenance activities performed on attractions.Captures
+      the date of maintenance, involved staff, and the relevant attraction.
+    info_list: Records maintenance activities performed on attractions.Captures the
+      date of maintenance, involved staff, and the relevant attraction.
+    tab_groups:
+    - direction: toone
+      fks:
+      - attraction_id
+      name: attraction
+      resource: Attraction
+    - direction: toone
+      fks:
+      - staff_id
+      name: staff
+      resource: Staff
+    type: Maintenance
+    user_key: maintenance_id
+  Merchandise:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: price
+      required: true
+    - name: category
+      required: true
+    - name: merchandise_id
+    description: Represents merchandise items sold at the park.Includes details like
+      item name, price, and category.
+    info_list: Represents merchandise items sold at the park.Includes details like
+      item name, price, and category.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - merchandise_id
+      name: SaleList
+      resource: Sale
+    type: Merchandise
+    user_key: name
+  Purchase:
+    attributes:
+    - label: ' purchase_id*'
+      name: purchase_id
+      search: true
+      sort: true
+    - name: vendor_id
+      required: true
+    - name: visitor_id
+      required: true
+    - name: purchase_time
+      type: DATETIME
+    description: Represents food purchase transactions.Contains details like the visitor
+      ID, vendor ID, and purchase timestamp.
+    info_list: Represents food purchase transactions.Contains details like the visitor
+      ID, vendor ID, and purchase timestamp.
+    tab_groups:
+    - direction: toone
+      fks:
+      - vendor_id
+      name: vendor
+      resource: FoodVendor
+    - direction: toone
+      fks:
+      - visitor_id
+      name: visitor
+      resource: Visitor
+    type: Purchase
+    user_key: purchase_id
+  Reservation:
+    attributes:
+    - label: ' reservation_id*'
+      name: reservation_id
+      search: true
+      sort: true
+    - name: event_id
+      required: true
+    - name: visitor_id
+      required: true
+    - name: reservation_time
+      type: DATETIME
+    description: Represents reservations made by visitors for park events.Includes
+      the visitor ID, event ID, and the reservation timestamp.
+    info_list: Represents reservations made by visitors for park events.Includes the
+      visitor ID, event ID, and the reservation timestamp.
+    tab_groups:
+    - direction: toone
+      fks:
+      - event_id
+      name: event
+      resource: Event
+    - direction: toone
+      fks:
+      - visitor_id
+      name: visitor
+      resource: Visitor
+    type: Reservation
+    user_key: reservation_id
+  RideExperience:
+    attributes:
+    - label: ' experience_id*'
+      name: experience_id
+      search: true
+      sort: true
+    - name: attraction_id
+      required: true
+    - name: visitor_id
+      required: true
+    - name: rating
+    description: Captures visitor experiences on rides.Stores details like visitor
+      ID, attraction ID, and rating provided by visitors.
+    info_list: Captures visitor experiences on rides.Stores details like visitor ID,
+      attraction ID, and rating provided by visitors.
+    tab_groups:
+    - direction: toone
+      fks:
+      - attraction_id
+      name: attraction
+      resource: Attraction
+    - direction: toone
+      fks:
+      - visitor_id
+      name: visitor
+      resource: Visitor
+    type: RideExperience
+    user_key: experience_id
+  Sale:
+    attributes:
+    - label: ' sale_id*'
+      name: sale_id
+      search: true
+      sort: true
+    - name: merchandise_id
+      required: true
+    - name: quantity
+      required: true
+    - name: sale_time
+      type: DATETIME
+    description: Represents sales transactions for merchandise items.Includes the
+      merchandise ID, quantity sold, and the sale timestamp.
+    info_list: Represents sales transactions for merchandise items.Includes the merchandise
+      ID, quantity sold, and the sale timestamp.
+    tab_groups:
+    - direction: toone
+      fks:
+      - merchandise_id
+      name: merchandise
+      resource: Merchandise
+    type: Sale
+    user_key: sale_id
+  Staff:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: role
+      required: true
+    - name: employment_date
+      type: DATETIME
+    - name: staff_id
+    description: Represents staff members employed at the park.Stores staff details
+      including name, role, and employment date.
+    info_list: Represents staff members employed at the park.Stores staff details
+      including name, role, and employment date.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - staff_id
+      name: MaintenanceList
+      resource: Maintenance
+    type: Staff
+    user_key: name
+  Ticket:
+    attributes:
+    - label: ' ticket_id*'
+      name: ticket_id
+      search: true
+      sort: true
+    - name: Type
+      required: true
+    - name: price
+      required: true
+    description: Defines the tickets sold for entry to the park.Includes the ticket
+      type and price.
+    info_list: Defines the tickets sold for entry to the park.Includes the ticket
+      type and price.
+    type: Ticket
+    user_key: ticket_id
+  Visitor:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: visit_time
+      type: DATETIME
+    - name: visitor_id
+    description: Represents visitors to the theme park. Stores visitor information
+      such as name and visit timestamp.
+    info_list: Represents visitors to the theme park. Stores visitor information such
+      as name and visit timestamp.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - visitor_id
+      name: PurchaseList
+      resource: Purchase
+    - direction: tomany
+      fks:
+      - visitor_id
+      name: ReservationList
+      resource: Reservation
+    - direction: tomany
+      fks:
+      - visitor_id
+      name: RideExperienceList
+      resource: RideExperience
+    type: Visitor
+    user_key: name
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
